@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="/JS/images/JS.png">
+    <title>Battery Status</title>
+    
+  <style>
+    body { max-width: 450px; }
+    #progress { width: 210px; }
+  </style>
+</head>
+
+<body>
+<h2 style="color: blue;">CW6 - Class Work</h2>
+<h2 id=title></h2>
+<div id="charging"></div>
+<div>
+   <progress id="progress" value="0" max="100" ></progress> 
+   <span id="sarjlevel" ></span>
+</div>
+<div id="message"></div>
+
+<h2 style="color:purple;">Online Status</h2>
+<p id=out></p>
+<p id=online></p>
+
+<h2 style="color:purple;">Keyboard</h2>
+<span id="yukarigit" ></span>
+<span id="key" ></span>
+
+<script>
+  "use strict";
+  function getBatteryState(evt) {
+      let battery = evt.target;
+      let durum = "", msg = "";
+      let level = Math.round(battery.level * 100);
+      if (battery.charging) { 
+         durum = level==100? "Fully charged" : "Charging...";
+         if (battery.chargingTime < Infinity) {
+           let tf = getTimeFormat(battery.chargingTime);
+           msg = tf.hour + ":" + tf.minute + " to full charge";
+         }
+      } else { 
+        durum = level>20? "Discharging..." : "Please connect the charger"
+        if (battery.dischargingTime < Infinity) {
+          let tf = getTimeFormat(battery.dischargingTime);
+          msg = tf.hour + ":" + tf.minute + " remaining";
+         }
+      }
+      console.log(level, battery.charging, msg)
+      charging.innerText = durum;
+      progress.value = level;
+      sarjlevel.innerText = level + "%";
+      message.innerText = msg;
+  }
+
+  function getTimeFormat(time) {
+      let m = time / 60;
+      let hour = parseInt(m / 60);
+      let minute = parseInt(m % 60);
+      minute = minute < 10 ? "0" + minute : minute;
+      return {hour, minute};
+  }
+
+  function init(bat) {
+      getBatteryState({type:'init', target:bat})
+      bat.onlevelchange = getBatteryState
+      bat.onchargingchange = getBatteryState
+   
+  }
+  function showOnline(onli) {
+    let msg;
+    if (onli) {
+        msg = 'connected -- online'
+        online.style.color = 'blue'
+    } else {
+        msg = 'disconnected -- offline'
+        online.style.color = 'gray'
+    }
+    online.innerText = msg; 
+    console.log(msg)
+  }
+
+  function keyboard(k){
+   
+    window.onkeydown =(e) =>{
+      if(e.altKey){
+        yukarigit.innerText="Alt";
+      }else if(e.ctrlKey){
+        yukarigit.innerText="Ctrl";
+      }else if(e.shiftKey){
+        yukarigit.innerText="Shift";
+      }
+      key.innerText=e.key;
+    };
+   
+    window.onkeyup=(e) =>{
+      if(!e.getModifierState("Alt") &&
+      !e.getModifierState("Control") &&
+      !e.getModifierState("Shift") ){
+        yukarigit.innerText="";
+      }
+    };
+   
+  }
+    
+    
+  title.innerText = document.title;
+  onoffline = () => showOnline(false)
+  ononline  = () => showOnline(true)
+  showOnline(navigator.onLine)
+  if (navigator.getBattery)
+      navigator.getBattery().then(init)
+  else throw "getBattery is not found"
+  
+  keyboard();
+</script>
+
+</body>
+</html>
