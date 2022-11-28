@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <style>
+      .img-container {
+          margin: 20px auto;
+          width: 40%;
+      }
+
+      .btn-container {
+          text-align: center;
+      }
+
+      img {
+          height: 400px;
+          display: block;
+          margin: auto;
+          padding-bottom: 20px;
+      }
+
+      button {
+          outline: none;
+          padding: 12px;
+          border: none;
+          background-color: rgb(25, 121, 211);
+          border-radius: 8px;
+          color: white;
+          cursor: pointer;
+      }
+  </style>
+  </head>
+  <body>
+
+     <br />
+    <!-- <img id="img" height="150" /> -- -->
+    <img id="img" src="1.png" alt="" class="imageTag">
+    <div class="btn-container">
+        <button onclick="previous()">Previous</button>
+        <button onclick="next()">Next</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+    </div>
+    <br />
+   
+  </body>
+
+  <script>
+    let resimsayisi = 9;
+    let index = 1;
+    let setTimeoutreturn;
+    let setTimeOutWorking = false; // setTimeout fonk. calisip calismadigini kontrol eden degisken
+    let img = document.querySelector("#img");
+    function start() {
+      if (setTimeOutWorking) return;
+      setTimeoutreturn = setTimeout(guncelle, 250); // setTimeout ile 250 msec sonra guncelle calistirir.
+    
+      // myTimeout atimin sonsuz ilerleyisini durdurabilmem icin kullandigim kontrol degiskeni.
+      setTimeOutWorking = true;
+    }
+
+    function guncelle() {
+      fetch('https://github.com/mervecelik11/mervecelik11.github.io/blob/main/HW3/'+index + ".png")
+        .then((response) => response.blob())
+        .then((imageBlob) => {
+          var urlCreator = window.URL || window.webkitURL;
+          var myObject = urlCreator.createObjectURL(imageBlob);
+          img.src = myObject;
+        });
+
+      index = (index % resimsayisi) + 1; // butun gorselleri sirayla indexte tutacagim.
+      setTimeOutWorking = false;
+      console.log(index);
+     
+      start();
+    }
+    
+    start();
+
+    let images = [
+            '1.jpg',
+            '2.png',
+            '3.png',
+            '4.png',
+            '5.png',
+            '6.png',
+            '7.png',
+            '8.png',
+            '9.png'
+            
+        ];
+        let imageTag = document.querySelector('.imageTag');
+        let i = 0;
+
+
+        function next() {
+            if (i >= images.length - 1) {
+                return false;
+            }
+            i++;
+            imageTag.setAttribute('src', images[i]);
+        }
+        function previous() {
+            if (i <= 0) {
+                return false;
+            }
+            i--;
+            imageTag.setAttribute('src', images[i]);
+        }
+        function pause() {
+          if (i >= images.length - 1) {
+                return false;
+            }
+            i=i-0;
+            
+            imageTag.setAttribute('src',images[i]);
+        
+        }
+
+  </script>
+</html>
+
