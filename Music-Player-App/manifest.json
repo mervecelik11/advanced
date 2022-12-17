@@ -1,0 +1,17 @@
+{
+    "name":"Music",
+    "short_name":"MusicApp",
+    "start_url":"/index.html",
+    "icons":[
+        {
+            "src": "images/faded.png",  
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+  
+    ],
+    "theme_color":"#000000",
+    "background_color":"#FFFFFF",
+    "display":"fullscreen",
+    "orientation":"portrait"
+}
