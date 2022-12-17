@@ -10,8 +10,14 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="manifest" href="manifest.json">
+
 </head>
 <body>
+    
+<button id="install-app" style="display: none">Uygulamayı Yükle</button>
+
+
    <div class="player">
        <div class="wrapper">
            <div class="details">
@@ -63,4 +69,22 @@
        </div>
    </div>
 </body>
+<script>
+const installButton = document.getElementById('install-app');
+let beforeInstallPromptEvent
+window.addEventListener("beforeinstallprompt", function(e) {
+    e.preventDefault();
+    beforeInstallPromptEvent = e
+    installButton.style.display = 'block'
+    installButton.addEventListener("click", function() {
+        e.prompt();
+    });
+    installButton.hidden = false;
+});
+installButton.addEventListener("click", function() {
+    beforeInstallPromptEvent.prompt();
+});
+
+
+</script>
 </html>
