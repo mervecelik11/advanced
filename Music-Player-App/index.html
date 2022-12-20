@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="images/faded.png">
     <link rel="manifest" href="manifest.json">
+ <script>   navigator.serviceWorker.register('sw.js') </script>
     
 
    
@@ -73,7 +74,7 @@
    </div>
 </body>
 <script>
-navigator.serviceWorker.register('sw.js')
+
 const installButton = document.getElementById('install-app');
 let beforeInstallPromptEvent
 window.addEventListener("beforeinstallprompt", function(e) {
