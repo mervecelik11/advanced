@@ -14,7 +14,7 @@
     <link rel="manifest" href="manifest.json">
     
 
-    <script>navigator.serviceWorker.register('sw.js') </script>
+
 </head>
 <body>
     
@@ -73,6 +73,7 @@
    </div>
 </body>
 <script>
+       navigator.serviceWorker.register('sw.js')
 const installButton = document.getElementById('install-app');
 let beforeInstallPromptEvent
 window.addEventListener("beforeinstallprompt", function(e) {
