@@ -1,7 +1,7 @@
 {
     "name":"Music",
-    "short_name":"MusicApp",
-    "start_url":"/Music-Player-App/index.html",
+    "short_name":"Music App",
+    "start_url":"index.html",
     "icons":[
         {
             "src": "images/faded.png",  
