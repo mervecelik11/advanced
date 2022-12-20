@@ -1,5 +1,3 @@
-
-
 function save(req, resp) {
   return caches.open(CACHE)
   .then(cache => {
