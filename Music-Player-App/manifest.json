@@ -1,6 +1,6 @@
 {
     "name": "Music Player",
-    "start_url": "/Music-Player-App/index.html",
+    "start_url": "/index.html",
     "display": "standalone",
     "background_color": "cyan",
     "icons": [
